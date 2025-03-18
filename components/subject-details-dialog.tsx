@@ -46,7 +46,7 @@ export function SubjectDetailsDialog({ subject, onDelete }: SubjectDetailsDialog
           <Info className="h-4 w-4" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[80vh]">
+      <DialogContent className="sm:max-w-[600px] max-h-[80vh] bg-black">
         <DialogHeader>
           <DialogTitle>{subject.name} Details</DialogTitle>
           <DialogDescription>View your progress and session history</DialogDescription>
@@ -110,7 +110,7 @@ export function SubjectDetailsDialog({ subject, onDelete }: SubjectDetailsDialog
                 Delete Subject
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="bg-black">
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>

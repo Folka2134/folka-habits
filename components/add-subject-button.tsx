@@ -66,7 +66,7 @@ export function AddSubjectButton() {
           Add Subject
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-black">
         <DialogHeader>
           <DialogTitle>Add New Subject</DialogTitle>
           <DialogDescription>Create a new subject to track your study progress.</DialogDescription>

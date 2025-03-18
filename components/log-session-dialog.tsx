@@ -47,7 +47,7 @@ export function LogSessionDialog({ subject, onLogSession, disabled }: LogSession
           {disabled ? "Already Logged Today" : "Log Session"}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] bg-black">
         <DialogHeader>
           <DialogTitle>Log Study Session</DialogTitle>
           <DialogDescription>
