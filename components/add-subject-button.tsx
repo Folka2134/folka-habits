@@ -1,0 +1,97 @@
+"use client"
+
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { PlusCircle } from "lucide-react"
+// import { useToast } from "@/hooks/use-toast"
+import type { Subject } from "@/lib/subjects"
+import { toast } from "sonner"
+
+export function AddSubjectButton() {
+  const [open, setOpen] = useState(false)
+  const [subjectName, setSubjectName] = useState("")
+  // const { toast } = useToast()
+
+  const handleAddSubject = () => {
+    if (!subjectName.trim()) {
+      toast("Subject name required", {
+        description: "Please enter a name for your subject",
+      })
+      return
+    }
+
+    // Create a new subject
+    const newSubject: Subject = {
+      id: Date.now().toString(),
+      name: subjectName.trim(),
+      level: 1,
+      streak: 0,
+      daysCompleted: 0,
+      sessions: [],
+    }
+
+    // Add to localStorage
+    const storedSubjects = localStorage.getItem("subjects")
+    const subjects = storedSubjects ? JSON.parse(storedSubjects) : []
+    localStorage.setItem("subjects", JSON.stringify([...subjects, newSubject]))
+
+    // Reset form and close dialog
+    setSubjectName("")
+    setOpen(false)
+
+    toast("Subject Added", {
+      description: `${subjectName} has been added to your subjects.`,
+    })
+
+    // Force a reload to update the subject list
+    window.location.reload()
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button>
+          <PlusCircle className="mr-2 h-4 w-4" />
+          Add Subject
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Add New Subject</DialogTitle>
+          <DialogDescription>Create a new subject to track your study progress.</DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Name
+            </Label>
+            <Input
+              id="name"
+              value={subjectName}
+              onChange={(e) => setSubjectName(e.target.value)}
+              className="col-span-3"
+              placeholder="e.g., Mathematics, Programming, Language"
+            />
+          </div>
+        </div>
+        <DialogFooter>
+          <Button type="submit" onClick={handleAddSubject}>
+            Add Subject
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
