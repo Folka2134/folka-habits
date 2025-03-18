@@ -7,8 +7,8 @@ export default function Home() {
   return (
     <main className="container mx-auto p-4 max-w-4xl">
       <div className="flex flex-col items-center justify-center py-8">
-        <h1 className="text-4xl font-bold text-center mb-2">Study Streak</h1>
-        <p className="text-muted-foreground text-center mb-8">Track your study habits and level up with consistency</p>
+        <h1 className="text-4xl font-bold text-center mb-2">Folka Habits</h1>
+        <p className="text-muted-foreground text-center mb-8">Build your study habits and level up with consistency</p>
 
         <div className="w-full">
           <div className="flex justify-between items-center mb-6">
