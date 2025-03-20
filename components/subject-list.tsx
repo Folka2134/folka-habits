@@ -12,6 +12,7 @@ import { toast } from "sonner"
 
 export default function SubjectList() {
   const [subjects, setSubjects] = useState<Subject[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     // Load subjects from localStorage
@@ -19,6 +20,8 @@ export default function SubjectList() {
     if (storedSubjects) {
       setSubjects(JSON.parse(storedSubjects))
     }
+
+    setIsLoading(false)
   }, [])
 
   useEffect(() => {
@@ -69,7 +72,6 @@ export default function SubjectList() {
               // Streak continues or starts
               streak += 1
               daysCompleted += 1
-
               // Check if level up is needed
               if (daysCompleted >= levelConfig.requiredDays) {
                 level += 1
@@ -121,6 +123,14 @@ export default function SubjectList() {
     })
   }
 
+  if (isLoading) {
+    return (
+      <div className="text-center p-8 border border-dashed rounded-lg">
+        <h3 className="text-xl font-medium">Loading subjects...</h3>
+        {/* <p className="text-muted-foreground mb-4">Please wait</p> */}
+      </div>
+    )
+  }
   if (subjects.length === 0) {
     return (
       <div className="text-center p-8 border border-dashed rounded-lg">
