@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ClipboardCheck } from "lucide-react"
 import { type Subject, getLevelConfig } from "@/lib/subjects"
+import { toast } from "sonner"
 
 interface LogSessionDialogProps {
   subject: Subject
@@ -33,6 +34,16 @@ export function LogSessionDialog({ subject, onLogSession, disabled }: LogSession
     const input = Number.parseInt(inputMinutes) || 0
     const output = Number.parseInt(outputMinutes) || 0
 
+    // Validate minutes against level requirements
+    if (input < levelConfig.inputMinutes || output < levelConfig.outputMinutes) {
+      // Show an error message to the user
+      toast("Invalid study time", {
+        description: `Level ${subject.level} requires at least ${levelConfig.inputMinutes} minutes of input and ${levelConfig.outputMinutes} minutes of output.`,
+      })
+      return;
+    }
+
+    // Log session
     onLogSession({ input, output })
     setInputMinutes("")
     setOutputMinutes("")
