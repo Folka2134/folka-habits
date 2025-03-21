@@ -9,27 +9,10 @@ import { LogSessionDialog } from "@/components/log-session-dialog"
 import { SubjectDetailsDialog } from "@/components/subject-details-dialog"
 import { type Subject, getLevelConfig } from "@/lib/subjects"
 import { toast } from "sonner"
+import { useSubjects } from "@/contexts/SubjectContext"
 
 export default function SubjectList() {
-  const [subjects, setSubjects] = useState<Subject[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    // Load subjects from localStorage
-    const storedSubjects = localStorage.getItem("subjects")
-    if (storedSubjects) {
-      setSubjects(JSON.parse(storedSubjects))
-    }
-
-    setIsLoading(false)
-  }, [])
-
-  useEffect(() => {
-    // Save subjects to localStorage whenever they change
-    if (subjects.length > 0) {
-      localStorage.setItem("subjects", JSON.stringify(subjects))
-    }
-  }, [subjects])
+  const { subjects, setSubjects, deleteSubject, isLoading } = useSubjects()
 
   const handleLogSession = (subjectId: string, minutes: { input: number; output: number }) => {
     setSubjects((prevSubjects) => {
@@ -116,7 +99,7 @@ export default function SubjectList() {
   }
 
   const handleDeleteSubject = (subjectId: string) => {
-    setSubjects((prevSubjects) => prevSubjects.filter((subject) => subject.id !== subjectId))
+    deleteSubject(subjectId)
 
     toast("Subject Deleted", {
       description: "The subject has been removed from your list.",
@@ -127,7 +110,6 @@ export default function SubjectList() {
     return (
       <div className="text-center p-8 border border-dashed rounded-lg">
         <h3 className="text-xl font-medium">Loading subjects...</h3>
-        {/* <p className="text-muted-foreground mb-4">Please wait</p> */}
       </div>
     )
   }

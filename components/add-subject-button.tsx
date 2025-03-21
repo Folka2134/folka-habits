@@ -17,10 +17,12 @@ import { PlusCircle } from "lucide-react"
 // import { useToast } from "@/hooks/use-toast"
 import type { Subject } from "@/lib/subjects"
 import { toast } from "sonner"
+import { useSubjects } from "@/contexts/SubjectContext"
 
 export function AddSubjectButton() {
   const [open, setOpen] = useState(false)
   const [subjectName, setSubjectName] = useState("")
+  const { addSubject } = useSubjects()
   // const { toast } = useToast()
 
   const handleAddSubject = () => {
@@ -41,10 +43,7 @@ export function AddSubjectButton() {
       sessions: [],
     }
 
-    // Add to localStorage
-    const storedSubjects = localStorage.getItem("subjects")
-    const subjects = storedSubjects ? JSON.parse(storedSubjects) : []
-    localStorage.setItem("subjects", JSON.stringify([...subjects, newSubject]))
+    addSubject(newSubject)
 
     // Reset form and close dialog
     setSubjectName("")
@@ -53,9 +52,6 @@ export function AddSubjectButton() {
     toast("Subject Added", {
       description: `${subjectName} has been added to your subjects.`,
     })
-
-    // Force a reload to update the subject list
-    window.location.reload()
   }
 
   return (

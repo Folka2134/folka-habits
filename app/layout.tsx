@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "sonner"
 import { ThemeProvider } from "@/components/theme-provider"
+import { SubjectProvider } from "@/contexts/SubjectContext"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -25,10 +26,12 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
       </head>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
-          <Toaster />
-        </ThemeProvider>
+        <SubjectProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </SubjectProvider>
       </body>
     </html>
   )
