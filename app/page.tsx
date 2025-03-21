@@ -2,6 +2,8 @@ import { Suspense } from "react"
 import SubjectList from "@/components/subject-list"
 import { AddSubjectButton } from "@/components/add-subject-button"
 import { Skeleton } from "@/components/ui/skeleton"
+import { Card, CardContent } from "@/components/ui/card"
+import { ActivityHistory } from "@/components/activity-history"
 
 export default function Home() {
   return (
@@ -11,6 +13,11 @@ export default function Home() {
         <p className="text-muted-foreground text-center mb-8">Build your study habits and level up with consistency</p>
 
         <div className="w-full">
+          <Card className="mb-8">
+            <CardContent className="pt-6">
+              <ActivityHistory />
+            </CardContent>
+          </Card>
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-semibold">Your Subjects</h2>
             <AddSubjectButton />
