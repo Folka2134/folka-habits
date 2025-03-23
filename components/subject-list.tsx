@@ -1,13 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Clock, Award, Flame } from "lucide-react"
 import { LogSessionDialog } from "@/components/log-session-dialog"
 import { SubjectDetailsDialog } from "@/components/subject-details-dialog"
-import { type Subject, getLevelConfig } from "@/lib/subjects"
+import { getLevelConfig } from "@/lib/subjects"
 import { toast } from "sonner"
 import { useSubjects } from "@/contexts/SubjectContext"
 
