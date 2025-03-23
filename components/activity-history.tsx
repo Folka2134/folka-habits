@@ -124,15 +124,15 @@ export function ActivityHistory() {
     // Return appropriate color class based on level
     switch (level) {
       case 1:
-        return "bg-green-100"
+        return "bg-green-400/20"
       case 2:
-        return "bg-green-200"
+        return "bg-green-400/40"
       case 3:
-        return "bg-green-300"
+        return "bg-green-400/60"
       case 4:
-        return "bg-green-400"
+        return "bg-green-400/80"
       case 5:
-        return "bg-green-500"
+        return "bg-green-400"
       default:
         return "bg-gray-100 dark:bg-gray-800"
     }
@@ -336,11 +336,11 @@ export function ActivityHistory() {
             <div className="flex items-center gap-1">
               <span>Less</span>
               <div className="w-3 h-3 bg-primary border border-border/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-green-100 border border-border/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-green-200 border border-border/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-green-300 border border-border/30 rounded-sm"></div>
+              <div className="w-3 h-3 bg-green-400/20 border border-border/30 rounded-sm"></div>
+              <div className="w-3 h-3 bg-green-400/40 border border-border/30 rounded-sm"></div>
+              <div className="w-3 h-3 bg-green-400/60 border border-border/30 rounded-sm"></div>
+              <div className="w-3 h-3 bg-green-400/80 border border-border/30 rounded-sm"></div>
               <div className="w-3 h-3 bg-green-400 border border-border/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-green-500 border border-border/30 rounded-sm"></div>
               <span>More</span>
             </div>
           </div>
