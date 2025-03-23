@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { format, parseISO, startOfYear, endOfYear, eachDayOfInterval, getYear, getDay, endOfMonth } from "date-fns"
+import { format, parseISO, startOfYear, endOfYear, eachDayOfInterval, getYear, getDay } from "date-fns"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import type { Subject } from "@/lib/subjects"
@@ -202,7 +202,7 @@ export function ActivityHistory() {
 
     for (let month = 0; month < 12; month++) {
       const monthStart = new Date(year, month, 1)
-      const monthEnd = endOfMonth(monthStart)
+      // const monthEnd = endOfMonth(monthStart)
 
       // Find the week where this month starts
       let startWeek = -1
