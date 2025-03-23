@@ -14,7 +14,7 @@ export default function Home() {
 
         <div className="w-full">
           <Card className="mb-8">
-            <CardContent className="pt-6">
+            <CardContent>
               <ActivityHistory />
             </CardContent>
           </Card>

@@ -332,16 +332,18 @@ export function ActivityHistory() {
             </div>
           </div>
 
-          <div className="flex items-center justify-end mt-2 text-xs text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <span>Less</span>
-              <div className="w-3 h-3 bg-primary border border-border/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-green-400/20 border border-border/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-green-400/40 border border-border/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-green-400/60 border border-border/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-green-400/80 border border-border/30 rounded-sm"></div>
-              <div className="w-3 h-3 bg-green-400 border border-border/30 rounded-sm"></div>
-              <span>More</span>
+          <div className="absolute right-0 pt-2.5">
+            <div className="flex items-center justify-end mt-2 text-xs text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <span>Less</span>
+                <div className="w-3 h-3 bg-primary border border-border/30 rounded-sm"></div>
+                <div className="w-3 h-3 bg-green-400/20 border border-border/30 rounded-sm"></div>
+                <div className="w-3 h-3 bg-green-400/40 border border-border/30 rounded-sm"></div>
+                <div className="w-3 h-3 bg-green-400/60 border border-border/30 rounded-sm"></div>
+                <div className="w-3 h-3 bg-green-400/80 border border-border/30 rounded-sm"></div>
+                <div className="w-3 h-3 bg-green-400 border border-border/30 rounded-sm"></div>
+                <span>More</span>
+              </div>
             </div>
           </div>
         </div>
@@ -350,10 +352,9 @@ export function ActivityHistory() {
   }
 
   return (
-    <div className="w-full">
-      <div className="mb-6">
+    <div className="w-full relative">
+      <div className="mb-4">
         <h2 className="text-2xl font-semibold mb-2">Activity History</h2>
-        <p className="text-muted-foreground">Your study activity over time</p>
       </div>
 
       <Tabs
@@ -361,6 +362,11 @@ export function ActivityHistory() {
         onValueChange={(value) => setSelectedYear(Number.parseInt(value))}
         className="w-full"
       >
+        {availableYears.map((year) => (
+          <TabsContent key={year} value={year.toString()} className="mt-0">
+            {renderYearGrid(year)}
+          </TabsContent>
+        ))}
         <TabsList className="">
           {availableYears.map((year) => (
             <TabsTrigger key={year} value={year.toString()}>
@@ -369,11 +375,6 @@ export function ActivityHistory() {
           ))}
         </TabsList>
 
-        {availableYears.map((year) => (
-          <TabsContent key={year} value={year.toString()} className="mt-0">
-            {renderYearGrid(year)}
-          </TabsContent>
-        ))}
       </Tabs>
     </div>
   )
