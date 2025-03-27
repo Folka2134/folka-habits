@@ -5,6 +5,7 @@ import { format, parseISO, startOfYear, endOfYear, eachDayOfInterval, getYear, g
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import type { Subject } from "@/lib/subjects"
+import { useSubjects } from "@/contexts/SubjectContext"
 
 interface DayData {
   date: string
@@ -27,13 +28,14 @@ export function ActivityHistory() {
   const [yearData, setYearData] = useState<Record<number, YearData>>({})
   const [availableYears, setAvailableYears] = useState<number[]>([])
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
+  const { subjects } = useSubjects()
 
   useEffect(() => {
     // Load subjects from localStorage
     const storedSubjects = localStorage.getItem("subjects")
     if (!storedSubjects) return
 
-    const subjects: Subject[] = JSON.parse(storedSubjects)
+    // const subjects: Subject[] = JSON.parse(storedSubjects)
     const yearsWithActivity = new Set<number>()
     const yearDataMap: Record<number, YearData> = {}
 
@@ -111,7 +113,7 @@ export function ActivityHistory() {
     if (activeYears.length > 0) {
       setSelectedYear(activeYears[0])
     }
-  }, [])
+  }, [subjects])
 
   // Function to determine color intensity based on minutes
   const getColorIntensity = (minutes: number, maxMinutes: number) => {
