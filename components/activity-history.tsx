@@ -5,6 +5,7 @@ import { format, parseISO, startOfYear, endOfYear, eachDayOfInterval, getYear, g
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useSubjects } from "@/contexts/SubjectContext"
+import { ArrowDown, ArrowUp } from "lucide-react"
 
 interface DayData {
   date: string
@@ -27,6 +28,7 @@ export function ActivityHistory() {
   const [yearData, setYearData] = useState<Record<number, YearData>>({})
   const [availableYears, setAvailableYears] = useState<number[]>([])
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
+  const [open, setOpen] = useState<boolean>(false)
   const { subjects, isLoading } = useSubjects()
 
   useEffect(() => {
@@ -139,6 +141,18 @@ export function ActivityHistory() {
     }
   }
 
+  // If toggle is off
+  if (!open) {
+    return (
+      <div className="w-full">
+        <div className="" onClick={() => setOpen(!open)}>
+          <h2 className="text-2xl font-semibold">Activity History</h2>
+          <ArrowDown className="ml-1" size={20} />
+        </div>
+      </div >
+    )
+  }
+
   // If data is loading
   if (isLoading) {
     return (
@@ -155,7 +169,6 @@ export function ActivityHistory() {
       </div>
     )
   }
-
 
   // If no data or no years with activity
   if (availableYears.length === 0) {
@@ -370,8 +383,8 @@ export function ActivityHistory() {
 
   return (
     <div className="w-full relative">
-      <div className="mb-4">
-        <h2 className="text-2xl font-semibold mb-2">Activity History</h2>
+      <div className="mb-4" onClick={() => setOpen(!open)}>
+        <h2 className="text-2xl font-semibold mb-2">Activity History<ArrowUp className="ml-1" size={20} /></h2>
       </div>
 
       <Tabs
