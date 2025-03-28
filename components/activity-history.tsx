@@ -155,7 +155,7 @@ export function ActivityHistory() {
   if (isLoading) {
     return (
       <div className="w-full">
-        <div className="mb-6">
+        <div className="flex items-center flex-col mb-6">
           <h2 className="text-2xl font-semibold mb-2">Activity History</h2>
           <p className="text-muted-foreground">Your study activity over time</p>
         </div>
@@ -172,7 +172,7 @@ export function ActivityHistory() {
   if (availableYears.length === 0) {
     return (
       <div className="w-full">
-        <div className="mb-6">
+        <div className="flex items-center flex-col mb-6">
           <h2 className="text-2xl font-semibold mb-2">Activity History</h2>
           <p className="text-muted-foreground">Your study activity over time</p>
         </div>
@@ -184,6 +184,7 @@ export function ActivityHistory() {
       </div>
     )
   }
+
 
   // Get the data for the selected year
   const currentYearData = yearData[selectedYear]
