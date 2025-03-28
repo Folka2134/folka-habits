@@ -5,7 +5,6 @@ import { format, parseISO, startOfYear, endOfYear, eachDayOfInterval, getYear, g
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useSubjects } from "@/contexts/SubjectContext"
-import { ArrowDown, ArrowUp } from "lucide-react"
 
 interface DayData {
   date: string
