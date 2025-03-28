@@ -145,9 +145,8 @@ export function ActivityHistory() {
   if (!open) {
     return (
       <div className="w-full">
-        <div className="" onClick={() => setOpen(!open)}>
-          <h2 className="text-2xl font-semibold">Activity History</h2>
-          <ArrowDown className="ml-1" size={20} />
+        <div className="flex justify-center">
+          <h2 className="text-2xl font-semibold "><span className="hover:underline cursor-pointer" onClick={() => setOpen(!open)}>Activity History</span></h2>
         </div>
       </div >
     )
@@ -383,8 +382,8 @@ export function ActivityHistory() {
 
   return (
     <div className="w-full relative">
-      <div className="mb-4" onClick={() => setOpen(!open)}>
-        <h2 className="text-2xl font-semibold mb-2">Activity History<ArrowUp className="ml-1" size={20} /></h2>
+      <div className="mb-4 flex justify-center">
+        <h2 className="text-2xl font-semibold "><span className="hover:underline cursor-pointer" onClick={() => setOpen(!open)}>Activity History</span></h2>
       </div>
 
       <Tabs

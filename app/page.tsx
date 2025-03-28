@@ -13,7 +13,7 @@ export default function Home() {
         <p className="text-muted-foreground text-center mb-8">Build your study habits and level up with consistency</p>
 
         <div className="w-full">
-          <Card className="mb-8">
+          <Card className="mb-8 border-none">
             <CardContent>
               <ActivityHistory />
             </CardContent>
