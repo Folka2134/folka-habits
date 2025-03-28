@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { format, parseISO, startOfYear, endOfYear, eachDayOfInterval, getYear, getDay } from "date-fns"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import type { Subject } from "@/lib/subjects"
 import { useSubjects } from "@/contexts/SubjectContext"
 
 interface DayData {
@@ -28,7 +27,7 @@ export function ActivityHistory() {
   const [yearData, setYearData] = useState<Record<number, YearData>>({})
   const [availableYears, setAvailableYears] = useState<number[]>([])
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear())
-  const { subjects } = useSubjects()
+  const { subjects, isLoading } = useSubjects()
 
   useEffect(() => {
     // Load subjects from localStorage
@@ -141,6 +140,22 @@ export function ActivityHistory() {
   }
 
   // If data is loading
+  if (isLoading) {
+    return (
+      <div className="w-full">
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold mb-2">Activity History</h2>
+          <p className="text-muted-foreground">Your study activity over time</p>
+        </div>
+        <div className="text-center p-8 border border-dashed rounded-lg">
+          <p className="text-muted-foreground">
+            Loading activity history
+          </p>
+        </div>
+      </div>
+    )
+  }
+
 
   // If no data or no years with activity
   if (availableYears.length === 0) {
