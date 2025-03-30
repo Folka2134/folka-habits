@@ -9,8 +9,8 @@ import { SubjectProvider } from "@/contexts/SubjectContext"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Study Streak - Habit Tracker",
-  description: "Track your study habits and level up with consistency",
+  title: "Folka Habits",
+  description: "Track and build your study habits",
   manifest: "/manifest.json",
 }
 

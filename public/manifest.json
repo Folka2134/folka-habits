@@ -1,7 +1,7 @@
 {
-  "name": "Study Streak - Habit Tracker",
-  "short_name": "Study Streak",
-  "description": "Track your study habits and level up with consistency",
+  "name": "Folka Habits",
+  "short_name": "Folka Habits",
+  "description": "Track and build your study habits",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -19,4 +19,3 @@
     }
   ]
 }
-
