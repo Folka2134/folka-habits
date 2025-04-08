@@ -173,7 +173,7 @@ export function ActivityHistory() {
     return (
       <div className="w-full">
         <div className="flex items-center flex-col mb-6">
-          <h2 className="text-2xl font-semibold mb-2">Activity History</h2>
+          <h2 className="text-2xl font-semibold mb-2" onClick={() => setOpen(!open)}>Activity History</h2>
           <p className="text-muted-foreground">Your study activity over time</p>
         </div>
         <div className="text-center p-8 border border-dashed rounded-lg">
@@ -385,7 +385,6 @@ export function ActivityHistory() {
       <div className="mb-4 flex justify-center">
         <h2 className="text-2xl font-semibold "><span className="hover:underline cursor-pointer" onClick={() => setOpen(!open)}>Activity History</span></h2>
       </div>
-
       <Tabs
         value={selectedYear.toString()}
         onValueChange={(value) => setSelectedYear(Number.parseInt(value))}
