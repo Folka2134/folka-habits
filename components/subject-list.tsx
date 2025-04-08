@@ -11,7 +11,7 @@ import { toast } from "sonner"
 import { useSubjects } from "@/contexts/SubjectContext"
 
 export default function SubjectList() {
-  const { subjects, setSubjects, deleteSubject, isLoading } = useSubjects()
+  const { subjects, setSubjects, archiveSubject, deleteSubject, isLoading } = useSubjects()
 
   const handleLogSession = (subjectId: string, minutes: { input: number; output: number }) => {
     setSubjects((prevSubjects) => {
@@ -97,6 +97,14 @@ export default function SubjectList() {
     })
   }
 
+  const handleArchiveSubject = (subjectId: string) => {
+    archiveSubject(subjectId)
+
+    toast("Subject Archived", {
+      description: "The subject has been added to the archive list.",
+    })
+  }
+
   const handleDeleteSubject = (subjectId: string) => {
     deleteSubject(subjectId)
 
@@ -123,7 +131,7 @@ export default function SubjectList() {
 
   return (
     <div className="grid gap-4 md:grid-cols-2">
-      {subjects.map((subject) => {
+      {subjects.filter((subject) => !subject.isArchived).map((subject) => {
         const levelConfig = getLevelConfig(subject.level)
         const progress = (subject.daysCompleted / levelConfig.requiredDays) * 100
 
@@ -179,7 +187,7 @@ export default function SubjectList() {
               </div>
             </CardContent>
             <CardFooter className="flex justify-between pt-2">
-              <SubjectDetailsDialog subject={subject} onDelete={() => handleDeleteSubject(subject.id)} />
+              <SubjectDetailsDialog subject={subject} onDelete={() => handleDeleteSubject(subject.id)} onArchive={() => handleArchiveSubject(subject.id)} />
               <LogSessionDialog
                 subject={subject}
                 onLogSession={(minutes) => handleLogSession(subject.id, minutes)}

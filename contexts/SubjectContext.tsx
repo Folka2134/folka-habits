@@ -8,6 +8,7 @@ type SubjectContextType = {
   setSubjects: React.Dispatch<React.SetStateAction<Subject[]>>
   addSubject: (subject: Subject) => void
   deleteSubject: (subjectId: string) => void
+  archiveSubject: (subjectId: string) => Subject[]
   isLoading: boolean
 }
 
@@ -37,12 +38,26 @@ export function SubjectProvider({ children }: { children: ReactNode }) {
     setSubjects((prev) => [...prev, subject])
   }
 
+  const archiveSubject = (subjectId: string) => {
+    const updatedSubjects = subjects.map((subject) => {
+      return subject.id === subjectId
+        ? { ...subject, isArchived: true }
+        : subject
+    });
+
+    setSubjects(updatedSubjects);
+    const archivedSubject = updatedSubjects.find(subject => subject.id === subjectId);
+    console.log("Subject archived: ", archivedSubject);
+
+    return updatedSubjects; // Since your type definition expects a return value
+  }
+
   const deleteSubject = (subjectId: string) => {
     setSubjects((prev) => prev.filter((subject) => subject.id !== subjectId))
   }
 
   return (
-    <SubjectContext.Provider value={{ subjects, setSubjects, addSubject, deleteSubject, isLoading }}>
+    <SubjectContext.Provider value={{ subjects, setSubjects, addSubject, archiveSubject, deleteSubject, isLoading }}>
       {children}
     </SubjectContext.Provider>
   )

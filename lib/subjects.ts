@@ -13,6 +13,7 @@ export interface Subject {
   streak: number
   daysCompleted: number
   sessions: Session[]
+  isArchived: boolean;
 }
 
 export interface LevelConfig {

@@ -30,10 +30,11 @@ import { Badge } from "@/components/ui/badge"
 
 interface SubjectDetailsDialogProps {
   subject: Subject
+  onArchive: () => void
   onDelete: () => void
 }
 
-export function SubjectDetailsDialog({ subject, onDelete }: SubjectDetailsDialogProps) {
+export function SubjectDetailsDialog({ subject, onArchive, onDelete }: SubjectDetailsDialogProps) {
   const [open, setOpen] = useState(false)
 
   // Sort sessions by date (newest first)
@@ -103,6 +104,34 @@ export function SubjectDetailsDialog({ subject, onDelete }: SubjectDetailsDialog
         </div>
 
         <DialogFooter className="flex justify-between">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" size="sm">
+                <Trash2 className="mr-2 h-4 w-4" />
+                Archive Subject
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent className="bg-black">
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will permanently archive {subject.name} and all of its session history. This action cannot be
+                  undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() => {
+                    onArchive()
+                    setOpen(false)
+                  }}
+                >
+                  Archive
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive" size="sm">

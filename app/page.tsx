@@ -19,7 +19,10 @@ export default function Home() {
             </CardContent>
           </Card>
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-semibold">Your Subjects</h2>
+            <div>
+              <h2 className="text-2xl font-semibold">Your Subjects</h2>
+              <ArchivedSubjectList />
+            </div>
             <AddSubjectButton />
           </div>
 

@@ -41,6 +41,7 @@ export function AddSubjectButton() {
       streak: 0,
       daysCompleted: 0,
       sessions: [],
+      isArchived: false,
     }
 
     addSubject(newSubject)
