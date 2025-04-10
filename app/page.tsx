@@ -4,6 +4,7 @@ import { AddSubjectButton } from "@/components/add-subject-button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Card, CardContent } from "@/components/ui/card"
 import { ActivityHistory } from "@/components/activity-history"
+import { ArchivedSubjectList } from "@/components/archived-subject-list"
 
 export default function Home() {
   return (
@@ -19,7 +20,7 @@ export default function Home() {
             </CardContent>
           </Card>
           <div className="flex justify-between items-center mb-6">
-            <div>
+            <div className="flex gap-3">
               <h2 className="text-2xl font-semibold">Your Subjects</h2>
               <ArchivedSubjectList />
             </div>
