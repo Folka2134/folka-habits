@@ -56,6 +56,7 @@ export function AddSubjectButton() {
   };
 
   return (
+    // Add listen to enter key
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
@@ -81,6 +82,11 @@ export function AddSubjectButton() {
               onChange={(e) => setSubjectName(e.target.value)}
               className="col-span-3"
               placeholder="e.g., Mathematics, Programming, Language"
+              onKeyDown={(e: React.KeyboardEvent) => {
+                if (e.key === "Enter") {
+                  handleAddSubject();
+                }
+              }}
             />
           </div>
         </div>
