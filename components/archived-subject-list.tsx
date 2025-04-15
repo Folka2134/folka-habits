@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,10 +19,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Award, Clock, Trash2 } from "lucide-react"
-import { useSubjects } from "@/contexts/SubjectContext"
-import { GetTotalMinutes } from "@/lib/utils"
+} from "@/components/ui/alert-dialog";
+import { Award, Clock, Trash2 } from "lucide-react";
+import { useSubjects } from "@/contexts/SubjectContext";
+import { formatDate, GetTotalMinutes } from "@/lib/utils";
 
 // interface SubjectDetailsDialogProps {
 //   subject: Subject
@@ -31,8 +31,8 @@ import { GetTotalMinutes } from "@/lib/utils"
 // }
 
 export function ArchivedSubjectList() {
-  const [open, setOpen] = useState(false)
-  const { subjects, deleteSubject } = useSubjects()
+  const [open, setOpen] = useState(false);
+  const { subjects, deleteSubject } = useSubjects();
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -46,59 +46,76 @@ export function ArchivedSubjectList() {
           <DialogTitle>Archived subjects</DialogTitle>
         </DialogHeader>
 
-        {subjects.filter((subject) => subject.isArchived).map((subject) => {
-          const totalMinutes = GetTotalMinutes(subject)
+        {subjects
+          .filter((subject) => subject.isArchived)
+          .map((subject) => {
+            const totalMinutes = GetTotalMinutes(subject);
+            const lastSession =
+              subject.sessions.length > 0
+                ? subject.sessions[subject.sessions.length - 1]
+                : null;
+            const lastSessionDate = lastSession
+              ? formatDate(lastSession.date)
+              : "No sessions";
 
-          return (
-            <div key={subject.id} className="overflow-hidden">
-              <div className="pb-2">
-                <div className="flex gap-1 items-center">
-                  <div className="text-xl">{subject.name}</div>
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button variant="destructive" size="sm">
-                        <Trash2 className="mr-2 h-4 w-4" />
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent className="bg-black">
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                          This will permanently delete {subject.name} and all of its session history. This action cannot be
-                          undone.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                          onClick={() => {
-                            deleteSubject(subject.id)
-                          }}
-                        >
-                          Delete
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                </div>
-              </div>
-              <div className="pb-2">
-                <div className="flex justify-between mb-1 text-sm">
-                  <div className="flex items-center gap-1">
-                    <Award className="h-4 w-4" />
-                    <span>Level {subject.level}</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-4 w-4" />
-                    <span>Total minutes: {totalMinutes}</span>
+            return (
+              <div key={subject.id} className="overflow-hidden">
+                <div className="pb-2">
+                  <div className="flex gap-1 items-center">
+                    <div className="text-xl">{subject.name}</div>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive" size="sm">
+                          <Trash2 className="mr-2 h-4 w-4" />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent className="bg-black">
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This will permanently delete {subject.name} and all
+                            of its session history. This action cannot be
+                            undone.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => {
+                              deleteSubject(subject.id);
+                            }}
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </div>
+                <div className="pb-2">
+                  <div className="flex justify-evenly mb-1 text-sm">
+                    <div className="flex flex-col gap-1">
+                      <div className="flex">
+                        <Award className="h-4 w-4 mr-1" />
+                        <span>Level {subject.level}</span>
+                      </div>
+                      <div className="flex">
+                        <Clock className="h-4 w-4 mr-1" />
+                        <span>Total minutes: {totalMinutes}</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center gap-1">
+                      <span>Last session</span>
+                      <span>{lastSessionDate}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          )
-        })}
+            );
+          })}
       </DialogContent>
     </Dialog>
-  )
+  );
 }
-
