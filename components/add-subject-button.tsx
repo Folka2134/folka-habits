@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -10,27 +10,27 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { PlusCircle } from "lucide-react"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { PlusCircle } from "lucide-react";
 // import { useToast } from "@/hooks/use-toast"
-import type { Subject } from "@/lib/subjects"
-import { toast } from "sonner"
-import { useSubjects } from "@/contexts/SubjectContext"
+import type { Subject } from "@/lib/subjects";
+import { toast } from "sonner";
+import { useSubjects } from "@/contexts/SubjectContext";
 
 export function AddSubjectButton() {
-  const [open, setOpen] = useState(false)
-  const [subjectName, setSubjectName] = useState("")
-  const { addSubject } = useSubjects()
+  const [open, setOpen] = useState(false);
+  const [subjectName, setSubjectName] = useState("");
+  const { addSubject } = useSubjects();
   // const { toast } = useToast()
 
   const handleAddSubject = () => {
     if (!subjectName.trim()) {
       toast("Subject name required", {
         description: "Please enter a name for your subject",
-      })
-      return
+      });
+      return;
     }
 
     // Create a new subject
@@ -42,18 +42,18 @@ export function AddSubjectButton() {
       daysCompleted: 0,
       sessions: [],
       isArchived: false,
-    }
+    };
 
-    addSubject(newSubject)
+    addSubject(newSubject);
 
     // Reset form and close dialog
-    setSubjectName("")
-    setOpen(false)
+    setSubjectName("");
+    setOpen(false);
 
     toast("Subject Added", {
       description: `${subjectName} has been added to your subjects.`,
-    })
-  }
+    });
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -66,7 +66,9 @@ export function AddSubjectButton() {
       <DialogContent className="sm:max-w-[425px] bg-black">
         <DialogHeader>
           <DialogTitle>Add New Subject</DialogTitle>
-          <DialogDescription>Create a new subject to track your study progress.</DialogDescription>
+          <DialogDescription>
+            Create a new subject to track your study progress.
+          </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
@@ -89,6 +91,5 @@ export function AddSubjectButton() {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
-

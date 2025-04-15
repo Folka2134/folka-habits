@@ -33,6 +33,28 @@ import { formatDate, GetTotalMinutes } from "@/lib/utils";
 export function ArchivedSubjectList() {
   const [open, setOpen] = useState(false);
   const { subjects, deleteSubject } = useSubjects();
+  const archivedSubjects = subjects.filter((subject) => subject.isArchived);
+
+  if (archivedSubjects.length === 0) {
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="outline">
+            <h1>Archived</h1>
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[400px] max-h-[80vh] bg-black">
+          <DialogHeader>
+            <DialogTitle>Archived subjects</DialogTitle>
+          </DialogHeader>
+
+          <div className="text-center p-8 border border-dashed rounded-lg">
+            <h3 className="text-xl font-medium mb-2">No archived subjects</h3>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
