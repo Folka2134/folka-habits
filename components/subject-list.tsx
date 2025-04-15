@@ -19,7 +19,7 @@ import { useSubjects } from "@/contexts/SubjectContext";
 export default function SubjectList() {
   const { subjects, setSubjects, archiveSubject, deleteSubject, isLoading } =
     useSubjects();
-  let activeSubjects = subjects.filter((subject) => !subject.isArchived);
+  const activeSubjects = subjects.filter((subject) => !subject.isArchived);
 
   const handleLogSession = (
     subjectId: string,
