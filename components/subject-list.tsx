@@ -134,15 +134,15 @@ export default function SubjectList() {
 
   if (isLoading) {
     return (
-      <div className="text-center p-8 border border-dashed rounded-lg">
+      <div className="rounded-lg border border-dashed p-8 text-center">
         <h3 className="text-xl font-medium">Loading subjects...</h3>
       </div>
     );
   }
   if (activeSubjects.length === 0) {
     return (
-      <div className="text-center p-8 border border-dashed rounded-lg">
-        <h3 className="text-xl font-medium mb-2">No subjects yet</h3>
+      <div className="rounded-lg border border-dashed p-8 text-center">
+        <h3 className="mb-2 text-xl font-medium">No subjects yet</h3>
         <p className="text-muted-foreground mb-4">
           Add your first subject to start tracking your study progress
         </p>
@@ -168,7 +168,7 @@ export default function SubjectList() {
           return (
             <Card key={subject.id} className="overflow-hidden">
               <CardHeader className="pb-2">
-                <div className="flex justify-between items-start">
+                <div className="flex items-start justify-between">
                   <CardTitle className="text-xl">{subject.name}</CardTitle>
                   <Badge variant={loggedToday ? "default" : "outline"}>
                     {loggedToday ? "Completed Today" : "Not Completed"}
@@ -176,7 +176,7 @@ export default function SubjectList() {
                 </div>
               </CardHeader>
               <CardContent className="pb-2">
-                <div className="flex justify-between mb-1 text-sm">
+                <div className="mb-1 flex justify-between text-sm">
                   <div className="flex items-center gap-1">
                     <Award className="h-4 w-4" />
                     <span>Level {subject.level}</span>
@@ -195,7 +195,7 @@ export default function SubjectList() {
                 </div>
 
                 <div className="mt-3">
-                  <div className="flex justify-between text-xs mb-1">
+                  <div className="mb-1 flex justify-between text-xs">
                     <span>Progress to Level {subject.level + 1}</span>
                     <span>
                       {subject.daysCompleted}/{levelConfig.requiredDays} days
@@ -205,13 +205,13 @@ export default function SubjectList() {
                 </div>
 
                 <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
-                  <div className="border rounded p-2">
+                  <div className="rounded border p-2">
                     <div className="text-muted-foreground">Input</div>
                     <div className="font-medium">
                       {levelConfig.inputMinutes} min
                     </div>
                   </div>
-                  <div className="border rounded p-2">
+                  <div className="rounded border p-2">
                     <div className="text-muted-foreground">Output</div>
                     <div className="font-medium">
                       {levelConfig.outputMinutes} min
