@@ -14,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlusCircle } from "lucide-react";
-// import { useToast } from "@/hooks/use-toast"
 import type { Subject } from "@/lib/subjects";
 import { toast } from "sonner";
 import { useSubjects } from "@/contexts/SubjectContext";
@@ -23,7 +22,6 @@ export function AddSubjectButton() {
   const [open, setOpen] = useState(false);
   const [subjectName, setSubjectName] = useState("");
   const { addSubject } = useSubjects();
-  // const { toast } = useToast()
 
   const handleAddSubject = () => {
     if (!subjectName.trim()) {
