@@ -201,7 +201,11 @@ export function SubjectDetailsDialog({
             </AlertDialogContent>
           </AlertDialog>
 
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button
+            aria-label="close-button"
+            variant="outline"
+            onClick={() => setOpen(false)}
+          >
             Close
           </Button>
         </DialogFooter>
