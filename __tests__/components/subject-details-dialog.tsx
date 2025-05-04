@@ -192,6 +192,4 @@ describe("SubjectDetailsDialog", () => {
       expect(screen.queryByText("Mathematics Details")).not.toBeInTheDocument();
     });
   });
-
-  // closes the dialog when Close is clicked
 });
