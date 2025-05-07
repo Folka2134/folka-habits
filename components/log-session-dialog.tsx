@@ -60,7 +60,11 @@ export function LogSessionDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button disabled={disabled} variant={disabled ? "outline" : "default"}>
+        <Button
+          aria-label="log-button"
+          disabled={disabled}
+          variant={disabled ? "outline" : "default"}
+        >
           <ClipboardCheck className="mr-2 h-4 w-4" />
           {disabled ? "Already Logged Today" : "Log Session"}
         </Button>
@@ -105,7 +109,11 @@ export function LogSessionDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button aria-label="log-button" type="submit" onClick={handleSubmit}>
+          <Button
+            aria-label="log-session-button"
+            type="submit"
+            onClick={handleSubmit}
+          >
             Log Session
           </Button>
         </DialogFooter>

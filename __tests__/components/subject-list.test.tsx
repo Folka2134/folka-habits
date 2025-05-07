@@ -259,7 +259,9 @@ describe("SubjectList", () => {
     fireEvent.change(inputField, { target: { value: "30" } });
     fireEvent.change(outputField, { target: { value: "15" } });
 
-    fireEvent.click(screen.getByRole("button", { name: /log-button/i }));
+    fireEvent.click(
+      screen.getByRole("button", { name: /log-session-button/i }),
+    );
 
     await waitFor(() => {
       expect(setSubjects).toHaveBeenCalled();
