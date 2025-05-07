@@ -148,7 +148,7 @@ describe("LogSessionDialog", () => {
       <LogSessionDialog
         subject={mockSubject}
         onLogSession={mockOnLogSession}
-        disabled={false}
+        disabled={true}
       />,
     );
 
