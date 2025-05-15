@@ -43,13 +43,13 @@ export function ArchivedSubjectList() {
             <h1>Archived</h1>
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[400px] max-h-[80vh] bg-black">
+        <DialogContent className="max-h-[80vh] bg-black sm:max-w-[400px]">
           <DialogHeader>
             <DialogTitle>Archived subjects</DialogTitle>
           </DialogHeader>
 
-          <div className="text-center p-8 border border-dashed rounded-lg">
-            <h3 className="text-xl font-medium mb-2">No archived subjects</h3>
+          <div className="rounded-lg border border-dashed p-8 text-center">
+            <h3 className="mb-2 text-xl font-medium">No archived subjects</h3>
           </div>
         </DialogContent>
       </Dialog>
@@ -63,7 +63,7 @@ export function ArchivedSubjectList() {
           <h1>Archived</h1>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[400px] max-h-[80vh] bg-black">
+      <DialogContent className="max-h-[80vh] bg-black sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle>Archived subjects</DialogTitle>
         </DialogHeader>
@@ -83,11 +83,15 @@ export function ArchivedSubjectList() {
             return (
               <div key={subject.id} className="overflow-hidden">
                 <div className="pb-2">
-                  <div className="flex gap-1 items-center">
+                  <div className="flex items-center gap-1">
                     <div className="text-xl">{subject.name}</div>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button variant="destructive" size="sm">
+                        <Button
+                          aria-label="delete-button"
+                          variant="destructive"
+                          size="sm"
+                        >
                           <Trash2 className="mr-2 h-4 w-4" />
                         </Button>
                       </AlertDialogTrigger>
@@ -117,14 +121,14 @@ export function ArchivedSubjectList() {
                   </div>
                 </div>
                 <div className="pb-2">
-                  <div className="flex justify-evenly mb-1 text-sm">
+                  <div className="mb-1 flex justify-evenly text-sm">
                     <div className="flex flex-col gap-1">
                       <div className="flex">
-                        <Award className="h-4 w-4 mr-1" />
+                        <Award className="mr-1 h-4 w-4" />
                         <span>Level {subject.level}</span>
                       </div>
                       <div className="flex">
-                        <Clock className="h-4 w-4 mr-1" />
+                        <Clock className="mr-1 h-4 w-4" />
                         <span>Total minutes: {totalMinutes}</span>
                       </div>
                     </div>
