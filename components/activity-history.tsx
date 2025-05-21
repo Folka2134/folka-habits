@@ -151,6 +151,7 @@ export function ActivityHistory() {
     const level = Math.ceil((minutes / maxMinutes) * maxLevel);
 
     // Return appropriate color class based on level
+    // TODO: Update colours (Currently 1 session equates to level 3/4)
     switch (level) {
       case 1:
         return "bg-green-400/20";
@@ -475,6 +476,7 @@ export function ActivityHistory() {
         onValueChange={(value) => setSelectedYear(Number.parseInt(value))}
         className="w-full"
       >
+        {/* TODO: Move tabs to bottom, inline with color legacy  */}
         <TabsList className="mb-4">
           {availableYears.map((year) => (
             <TabsTrigger key={year} value={year.toString()}>

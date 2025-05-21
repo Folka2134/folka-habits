@@ -105,6 +105,7 @@ export function SubjectDetailsDialog({
                     <TableHead>Date</TableHead>
                     <TableHead>Input</TableHead>
                     <TableHead>Output</TableHead>
+                    {/* TODO: Remove status column */}
                     <TableHead>Status</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -116,6 +117,7 @@ export function SubjectDetailsDialog({
                       </TableCell>
                       <TableCell>{session.inputMinutes} min</TableCell>
                       <TableCell>{session.outputMinutes} min</TableCell>
+                      {/* TODO: Remove status data */}
                       <TableCell>
                         <Badge
                           variant={
