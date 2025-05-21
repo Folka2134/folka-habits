@@ -47,17 +47,18 @@ export function ActivityHistory() {
   const { subjects, isLoading } = useSubjects();
 
   useEffect(() => {
-    // Load subjects from localStorage
-    const storedSubjects = localStorage.getItem("subjects");
-    if (!storedSubjects) return;
+    if (!subjects || subjects.length === 0) return;
 
-    // const subjects: Subject[] = JSON.parse(storedSubjects)
     const yearsWithActivity = new Set<number>();
     const yearDataMap: Record<number, YearData> = {};
 
     // Find all years with activity and initialize year data
     subjects.forEach((subject) => {
+      if (!subject.sessions) return;
+
       subject.sessions.forEach((session) => {
+        if (!session.date) return;
+
         const sessionDate = parseISO(session.date);
         const year = getYear(sessionDate);
         yearsWithActivity.add(year);
@@ -93,14 +94,18 @@ export function ActivityHistory() {
 
     // Populate the year data with session information
     subjects.forEach((subject) => {
+      if (!subject.sessions) return;
+
       subject.sessions.forEach((session) => {
+        if (!session.date) return;
+
         const sessionDate = parseISO(session.date);
         const year = getYear(sessionDate);
         const yearData = yearDataMap[year];
 
         if (yearData && yearData.days[session.date]) {
           const totalSessionMinutes =
-            session.inputMinutes + session.outputMinutes;
+            (session.inputMinutes || 0) + (session.outputMinutes || 0);
 
           // Add to total minutes for the day
           yearData.days[session.date].totalMinutes += totalSessionMinutes;
@@ -108,13 +113,14 @@ export function ActivityHistory() {
 
           // Track which subject contributed these minutes
           yearData.days[session.date].sessions.push({
-            subject: subject.name,
-            inputMinutes: session.inputMinutes,
-            outputMinutes: session.outputMinutes,
+            subject: subject.name || "Unknown",
+            inputMinutes: session.inputMinutes || 0,
+            outputMinutes: session.outputMinutes || 0,
           });
 
           // Track the highest minutes for any day in this year
           if (yearData.days[session.date].totalMinutes > yearData.maxMinutes) {
+            yearData.maxMinutes = yearData.maxMinutes || 0;
             yearData.maxMinutes = yearData.days[session.date].totalMinutes;
           }
         }
@@ -123,7 +129,7 @@ export function ActivityHistory() {
 
     // Filter to only years with activity and sort
     const activeYears = Array.from(yearsWithActivity)
-      .filter((year) => yearDataMap[year].hasActivity)
+      .filter((year) => yearDataMap[year]?.hasActivity)
       .sort((a, b) => b - a); // Sort descending (newest first)
 
     setYearData(yearDataMap);
@@ -138,6 +144,7 @@ export function ActivityHistory() {
   // Function to determine color intensity based on minutes
   const getColorIntensity = (minutes: number, maxMinutes: number) => {
     if (minutes === 0) return "bg-gray-100 dark:bg-gray-800";
+    if (maxMinutes === 0) return "bg-gray-100 dark:bg-gray-800";
 
     // Create 5 intensity levels
     const maxLevel = 5;
@@ -165,9 +172,9 @@ export function ActivityHistory() {
     return (
       <div className="w-full">
         <div className="flex justify-center">
-          <h2 className="text-2xl font-semibold ">
+          <h2 className="text-2xl font-semibold">
             <div
-              className="hover:underline cursor-pointer"
+              className="cursor-pointer hover:underline"
               onClick={() => setOpen(!open)}
             >
               <span className="flex items-center gap-2">
@@ -185,10 +192,10 @@ export function ActivityHistory() {
   if (isLoading) {
     return (
       <div className="w-full">
-        <div className="flex items-center flex-col mb-6">
-          <h2 className="text-2xl font-semibold ">
+        <div className="mb-6 flex flex-col items-center">
+          <h2 className="text-2xl font-semibold">
             <div
-              className="hover:underline cursor-pointer"
+              className="cursor-pointer hover:underline"
               onClick={() => setOpen(!open)}
             >
               <span className="flex items-center gap-2">
@@ -198,7 +205,7 @@ export function ActivityHistory() {
             </div>
           </h2>
           <p className="text-muted-foreground">Your study activity over time</p>
-          <div className="text-center p-8 border border-dashed rounded-lg">
+          <div className="rounded-lg border border-dashed p-8 text-center">
             <p className="text-muted-foreground">Loading activity history</p>
           </div>
         </div>
@@ -210,10 +217,10 @@ export function ActivityHistory() {
   if (availableYears.length === 0) {
     return (
       <div className="w-full">
-        <div className="flex items-center flex-col mb-6">
-          <h2 className="text-2xl font-semibold ">
+        <div className="mb-6 flex flex-col items-center">
+          <h2 className="text-2xl font-semibold">
             <div
-              className="hover:underline cursor-pointer"
+              className="cursor-pointer hover:underline"
               onClick={() => setOpen(!open)}
             >
               <span className="flex items-center gap-2">
@@ -224,7 +231,7 @@ export function ActivityHistory() {
           </h2>
           <p className="text-muted-foreground">Your study activity over time</p>
         </div>
-        <div className="text-center p-8 border border-dashed rounded-lg">
+        <div className="rounded-lg border border-dashed p-8 text-center">
           <p className="text-muted-foreground">
             No activity recorded yet. Log your first study session to see your
             activity history.
@@ -280,7 +287,6 @@ export function ActivityHistory() {
 
     for (let month = 0; month < 12; month++) {
       const monthStart = new Date(year, month, 1);
-      // const monthEnd = endOfMonth(monthStart)
 
       // Find the week where this month starts
       let startWeek = -1;
@@ -329,7 +335,7 @@ export function ActivityHistory() {
       <div className="overflow-x-auto">
         <div className="min-w-max">
           {/* Month labels */}
-          <div className="relative flex h-5 mb-1">
+          <div className="relative mb-1 flex h-5">
             {monthLabels.map((month, i) => {
               const startPos = month.startWeek * cellTotal;
               const width = (month.endWeek - month.startWeek + 1) * cellTotal;
@@ -337,7 +343,7 @@ export function ActivityHistory() {
               return (
                 <div
                   key={i}
-                  className="absolute text-xs text-muted-foreground text-center"
+                  className="text-muted-foreground absolute text-center text-xs"
                   style={{
                     left: `${startPos}px`,
                     width: `${width}px`,
@@ -352,14 +358,14 @@ export function ActivityHistory() {
           {/* Calendar grid */}
           <div className="flex">
             {/* Day of week labels */}
-            <div className="flex flex-col mr-2 text-xs text-muted-foreground">
-              <div className="h-3 text-center mb-1">S</div>
-              <div className="h-3 text-center mb-1">M</div>
-              <div className="h-3 text-center mb-1">T</div>
-              <div className="h-3 text-center mb-1">W</div>
-              <div className="h-3 text-center mb-1">T</div>
-              <div className="h-3 text-center mb-1">F</div>
-              <div className="h-3 text-center mb-1">S</div>
+            <div className="text-muted-foreground mr-2 flex flex-col text-xs">
+              <div className="mb-1 h-3 text-center">S</div>
+              <div className="mb-1 h-3 text-center">M</div>
+              <div className="mb-1 h-3 text-center">T</div>
+              <div className="mb-1 h-3 text-center">W</div>
+              <div className="mb-1 h-3 text-center">T</div>
+              <div className="mb-1 h-3 text-center">F</div>
+              <div className="mb-1 h-3 text-center">S</div>
             </div>
 
             {/* Calendar squares */}
@@ -373,7 +379,7 @@ export function ActivityHistory() {
                         return (
                           <div
                             key={`empty-${dayIndex}`}
-                            className="w-3 h-3 mb-1"
+                            className="mb-1 h-3 w-3"
                           />
                         );
                       }
@@ -384,12 +390,14 @@ export function ActivityHistory() {
                         sessions: [],
                       };
 
+                      const maxMinutes = yearData[year]?.maxMinutes || 0;
+
                       return (
                         <TooltipProvider key={dateStr}>
                           <Tooltip>
                             <TooltipTrigger asChild>
                               <div
-                                className={`w-3 h-3 mb-1 rounded-sm ${getColorIntensity(dayData.totalMinutes, yearData[year].maxMinutes)} border border-border/30`}
+                                className={`mb-1 h-3 w-3 rounded-sm ${getColorIntensity(dayData.totalMinutes, maxMinutes)} border-border/30 border`}
                               />
                             </TooltipTrigger>
                             <TooltipContent>
@@ -427,18 +435,16 @@ export function ActivityHistory() {
             </div>
           </div>
 
-          <div className="absolute right-0 pt-2.5">
-            <div className="flex items-center justify-end mt-2 text-xs text-muted-foreground">
-              <div className="flex items-center gap-1">
-                <span>Less</span>
-                <div className="w-3 h-3 bg-primary border border-border/30 rounded-sm"></div>
-                <div className="w-3 h-3 bg-green-400/20 border border-border/30 rounded-sm"></div>
-                <div className="w-3 h-3 bg-green-400/40 border border-border/30 rounded-sm"></div>
-                <div className="w-3 h-3 bg-green-400/60 border border-border/30 rounded-sm"></div>
-                <div className="w-3 h-3 bg-green-400/80 border border-border/30 rounded-sm"></div>
-                <div className="w-3 h-3 bg-green-400 border border-border/30 rounded-sm"></div>
-                <span>More</span>
-              </div>
+          <div className="mt-2 flex justify-end">
+            <div className="text-muted-foreground flex items-center text-xs">
+              <span>Less</span>
+              <div className="border-border/30 mx-1 h-3 w-3 rounded-sm border bg-gray-100 dark:bg-gray-800"></div>
+              <div className="border-border/30 mx-0.5 h-3 w-3 rounded-sm border bg-green-400/20"></div>
+              <div className="border-border/30 mx-0.5 h-3 w-3 rounded-sm border bg-green-400/40"></div>
+              <div className="border-border/30 mx-0.5 h-3 w-3 rounded-sm border bg-green-400/60"></div>
+              <div className="border-border/30 mx-0.5 h-3 w-3 rounded-sm border bg-green-400/80"></div>
+              <div className="border-border/30 mx-1 h-3 w-3 rounded-sm border bg-green-400"></div>
+              <span>More</span>
             </div>
           </div>
         </div>
@@ -447,11 +453,11 @@ export function ActivityHistory() {
   };
 
   return (
-    <div className="w-full relative">
+    <div className="relative w-full">
       <div className="mb-4 flex justify-center">
-        <h2 className="text-2xl font-semibold ">
+        <h2 className="text-2xl font-semibold">
           <div
-            className="hover:underline cursor-pointer"
+            className="cursor-pointer hover:underline"
             onClick={() => setOpen(!open)}
           >
             <span className="flex items-center gap-2">
@@ -461,23 +467,26 @@ export function ActivityHistory() {
           </div>
         </h2>
       </div>
+      <p className="text-muted-foreground mb-4 text-center">
+        Your study activity over time
+      </p>
       <Tabs
         value={selectedYear.toString()}
         onValueChange={(value) => setSelectedYear(Number.parseInt(value))}
         className="w-full"
       >
-        {availableYears.map((year) => (
-          <TabsContent key={year} value={year.toString()} className="mt-0">
-            {renderYearGrid(year)}
-          </TabsContent>
-        ))}
-        <TabsList className="">
+        <TabsList className="mb-4">
           {availableYears.map((year) => (
             <TabsTrigger key={year} value={year.toString()}>
               {year}
             </TabsTrigger>
           ))}
         </TabsList>
+        {availableYears.map((year) => (
+          <TabsContent key={year} value={year.toString()} className="mt-0">
+            {renderYearGrid(year)}
+          </TabsContent>
+        ))}
       </Tabs>
     </div>
   );
