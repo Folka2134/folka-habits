@@ -62,7 +62,7 @@ export function AddSubjectButton() {
           Add Subject
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-black">
+      <DialogContent className="bg-black sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add New Subject</DialogTitle>
           <DialogDescription>
@@ -90,7 +90,7 @@ export function AddSubjectButton() {
         </div>
         <DialogFooter>
           <Button type="submit" onClick={handleAddSubject}>
-            Add Subject
+            Add
           </Button>
         </DialogFooter>
       </DialogContent>
