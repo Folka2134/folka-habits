@@ -125,5 +125,3 @@ describe("Add Subject Button", () => {
     );
   });
 });
-
-// Add subject button should not trigger addSUbject when state is empty // TODO: Write this test
