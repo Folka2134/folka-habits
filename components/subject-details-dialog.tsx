@@ -33,7 +33,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Info, Trash2 } from "lucide-react";
 import { type Subject, getLevelConfig } from "@/lib/subjects";
-import { Badge } from "@/components/ui/badge";
 
 interface SubjectDetailsDialogProps {
   subject: Subject;
@@ -105,8 +104,6 @@ export function SubjectDetailsDialog({
                     <TableHead>Date</TableHead>
                     <TableHead>Input</TableHead>
                     <TableHead>Output</TableHead>
-                    {/* TODO: Remove status column */}
-                    <TableHead>Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -117,18 +114,6 @@ export function SubjectDetailsDialog({
                       </TableCell>
                       <TableCell>{session.inputMinutes} min</TableCell>
                       <TableCell>{session.outputMinutes} min</TableCell>
-                      {/* TODO: Remove status data */}
-                      <TableCell>
-                        <Badge
-                          variant={
-                            session.meetsRequirement ? "default" : "destructive"
-                          }
-                        >
-                          {session.meetsRequirement
-                            ? "Completed"
-                            : "Incomplete"}
-                        </Badge>
-                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
