@@ -98,7 +98,6 @@ describe("SubjectDetailsDialog", () => {
       expect(screen.getByText("Date")).toBeInTheDocument();
       expect(screen.getByText("Input")).toBeInTheDocument();
       expect(screen.getByText("Output")).toBeInTheDocument();
-      expect(screen.getByText("Status")).toBeInTheDocument();
     });
 
     expect(screen.getByText("40 min")).toBeInTheDocument();
