@@ -171,7 +171,9 @@ describe("ActivityHistory", () => {
     expect(screen.getByText("Activity History")).toBeInTheDocument();
     // In the collapsed view, the subtitle shouldn't be present
     expect(
-      screen.queryByText("Your study activity over time"),
+      screen.queryByText(
+        "It takes on average 66 days for a behaviour to become automatic",
+      ),
     ).not.toBeInTheDocument();
   });
 
@@ -206,7 +208,9 @@ describe("ActivityHistory", () => {
 
     // Initially collapsed
     expect(
-      screen.queryByText("Your study activity over time"),
+      screen.queryByText(
+        "It takes on average 66 days for a behaviour to become automatic",
+      ),
     ).not.toBeInTheDocument();
 
     // Expand
@@ -215,7 +219,9 @@ describe("ActivityHistory", () => {
     // Now expanded - look for subtitle text
     await waitFor(() => {
       expect(
-        screen.getByText("Your study activity over time"),
+        screen.getByText(
+          "It takes on average 66 days for a behaviour to become automatic",
+        ),
       ).toBeInTheDocument();
     });
 
