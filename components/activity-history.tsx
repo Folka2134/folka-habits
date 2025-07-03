@@ -205,7 +205,6 @@ export function ActivityHistory() {
               </span>
             </div>
           </h2>
-          {/* <p className="text-muted-foreground">Your study activity over time</p> */}
           <p className="text-muted-foreground mt-4 text-center text-sm">
             It takes on average 66 days for a behaviour to become automatic
           </p>
@@ -233,8 +232,6 @@ export function ActivityHistory() {
               </span>
             </div>
           </h2>
-          {/* <p className="text-muted-foreground">Your study activity over time</p> */}
-
           <p className="text-muted-foreground mt-4 text-center text-sm">
             It takes on average 66 days for a behaviour to become automatic
           </p>
@@ -475,9 +472,6 @@ export function ActivityHistory() {
           </div>
         </h2>
       </div>
-      {/* <p className="text-muted-foreground mb-4 text-center"> */}
-      {/*   Your study activity over time */}
-      {/* </p> */}
       <p className="text-muted-foreground mt-4 text-center text-sm">
         It takes on average 66 days for a behaviour to become automatic
       </p>
