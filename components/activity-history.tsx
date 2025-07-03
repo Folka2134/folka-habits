@@ -205,7 +205,10 @@ export function ActivityHistory() {
               </span>
             </div>
           </h2>
-          <p className="text-muted-foreground">Your study activity over time</p>
+          {/* <p className="text-muted-foreground">Your study activity over time</p> */}
+          <p className="text-muted-foreground mt-4 text-center text-sm">
+            It takes on average 66 days for a behaviour to become automatic
+          </p>
           <div className="rounded-lg border border-dashed p-8 text-center">
             <p className="text-muted-foreground">Loading activity history</p>
           </div>
@@ -230,7 +233,11 @@ export function ActivityHistory() {
               </span>
             </div>
           </h2>
-          <p className="text-muted-foreground">Your study activity over time</p>
+          {/* <p className="text-muted-foreground">Your study activity over time</p> */}
+
+          <p className="text-muted-foreground mt-4 text-center text-sm">
+            It takes on average 66 days for a behaviour to become automatic
+          </p>
         </div>
         <div className="rounded-lg border border-dashed p-8 text-center">
           <p className="text-muted-foreground">
@@ -468,8 +475,11 @@ export function ActivityHistory() {
           </div>
         </h2>
       </div>
-      <p className="text-muted-foreground mb-4 text-center">
-        Your study activity over time
+      {/* <p className="text-muted-foreground mb-4 text-center"> */}
+      {/*   Your study activity over time */}
+      {/* </p> */}
+      <p className="text-muted-foreground mt-4 text-center text-sm">
+        It takes on average 66 days for a behaviour to become automatic
       </p>
       <Tabs
         value={selectedYear.toString()}
